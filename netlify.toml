@@ -3,12 +3,12 @@
   publish = "build/client"
 
 [build.environment]
-  NODE_VERSION = "18.18.0"
+  NODE_VERSION = "18"
   NODE_OPTIONS = "--max-old-space-size=6144"
   NPM_FLAGS = "--production=false"
   NETLIFY_USE_PNPM = "true"
   PNPM_VERSION = "9.14.4"
 
 [context.production.environment]
-  NODE_VERSION = "18.18.0"
+  NODE_VERSION = "18"
   NODE_ENV = "production"
