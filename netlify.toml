@@ -1,0 +1,11 @@
+[build]
+  command = "NODE_OPTIONS='--max-old-space-size=4096' pnpm run build"
+  publish = "build/client"
+
+[build.environment]
+  NODE_VERSION = "18.18.0"
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  NPM_FLAGS = "--production=false"
+
+[context.production.environment]
+  NODE_VERSION = "18.18.0"

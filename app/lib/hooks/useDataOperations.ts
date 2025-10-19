@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { ImportExportService } from '~/lib/services/importExportService';
 import { useIndexedDB } from '~/lib/hooks/useIndexedDB';
 import { generateId } from 'ai';
+import { yieldToMain } from '~/utils/yieldToMain';
 
 interface UseDataOperationsProps {
   /**
@@ -646,6 +647,11 @@ export function useDataOperations({
               `Imported ${processed} of ${validatedChats.length} chats`,
               80 + (processed / validatedChats.length) * 20,
             );
+          }
+
+          // Periodically yield to allow the browser to paint and keep the page responsive
+          if (processed % 25 === 0) {
+            await yieldToMain();
           }
         }
 
