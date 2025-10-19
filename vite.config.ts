@@ -11,7 +11,7 @@ dotenv.config({ path: '.env.local' });
 dotenv.config({ path: '.env' });
 dotenv.config();
 
-export default defineConfig((config) => {
+export default defineConfig(({ command, mode }) => {
   return {
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -43,7 +43,8 @@ export default defineConfig((config) => {
           return null;
         },
       },
-      config.mode !== 'test' && remixCloudflareDevProxy(),
+      // Only include the Cloudflare dev proxy when running the dev server
+      command === 'serve' && remixCloudflareDevProxy(),
       remixVitePlugin({
         future: {
           v3_fetcherPersist: true,
@@ -55,7 +56,7 @@ export default defineConfig((config) => {
       UnoCSS(),
       tsconfigPaths(),
       chrome129IssuePlugin(),
-      config.mode === 'production' && optimizeCssModules({ apply: 'build' }),
+      mode === 'production' && optimizeCssModules({ apply: 'build' }),
     ],
     envPrefix: [
       'VITE_',
